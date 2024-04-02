@@ -1,0 +1,15 @@
+pip install stable-baselines3==2.0.0a5
+pip install swig
+pip install gymnasium[box2d]
+pip install huggingface_sb3
+pip install gymnasium[atari]
+pip install gymnasium[accept-rom-license]
+pip install imageio
+pip install mlflow
+pip install opencv-python
+pip install pyvirtualdisplay > /dev/null 2>&1
+pip install --upgrade gymnasium ale-py
+pip install optuna
+pip install IPython
+pip install imageio[ffmpeg]
+pip install imageio[pyav]

@@ -4,6 +4,7 @@ from stable_baselines3.common.env_util import make_atari_env
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3 import PPO, DQN, A2C
 from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.logger import configure
 import json
 import torch
 import pandas as pd
@@ -14,17 +15,12 @@ else:
     print("GPU is not available.")
 
 
-def TrainAndEvaluate(env_id, model, df, total_steps, evaluation_count, current_steps):
+def TrainAndEvaluate(env_id, model, total_steps):
 
     env = make_atari_env(env_id, n_envs=1, seed=0)
     env = VecFrameStack(env, n_stack=4)
-    steps_per_eval = total_steps // evaluation_count
-    for i in range(evaluation_count):
-        model.learn(steps_per_eval)
-        eval_env = VecFrameStack(make_atari_env(env_id, n_envs=1, seed=0), n_stack=4)
-        mean_reward, std_reward = evaluate_policy(model, eval_env, n_eval_episodes=10, deterministic=True)
-        df.loc[len(df)] = [(1 + i) * steps_per_eval + current_steps, mean_reward, std_reward]
-    return model, df
+    model.learn(total_steps)
+    return model
 
 
 def InitialiseExperiment(experiment_name, model, model_architecture, env_id, hyper_parameters):
@@ -55,28 +51,61 @@ def InitialiseExperiment(experiment_name, model, model_architecture, env_id, hyp
     with open(metadata_path, 'w') as file:
         json.dump(meta_data, file)
 
-    # Initialize and save an empty evaluations DataFrame in the experiment directory
-    evaluations_path = os.path.join(directory, 'evaluations.csv')
-    df = pd.DataFrame(columns=['training_steps', 'mean_reward', 'std_reward'])
-    df.to_csv(evaluations_path, index=False)
-
     # Save the initial model in the experiment directory
-    model_save_path = os.path.join(directory, f"{env_id}-{model_architecture}-0")
+    new_directory = os.path.join(directory, f"{env_id}-{model_architecture}-0")
+    if not os.path.exists(new_directory):
+        os.mkdir(new_directory)
+    model_save_path = f"{new_directory}/model"
     model.save(model_save_path)
 
-def SaveNewData(experiment_name, model, meta_data, steps_trained, df):
-    new_steps_trained = meta_data.get("steps_trained") + steps_trained
-    meta_data["steps_trained"] = new_steps_trained
+def TrainExperiment(experiment_name,steps):
+    metadata_path = f"{experiment_name}/metadata.json"
+    meta_data = {}
+    with open(metadata_path, 'r') as file:
+        meta_data = json.load(file)
+    new_steps_trained = meta_data.get("steps_trained") + steps
+    model_name = meta_data.get("env_id") + "-" + meta_data.get("model_architecture") + "-" + str(new_steps_trained)
+    new_directory = f"{experiment_name}/" + model_name
+    if not os.path.exists(new_directory):
+        os.mkdir(new_directory)
 
+    env_id = meta_data.get("env_id")
+    model_architecture = meta_data.get("model_architecture")
+    old_model_name = env_id + "-" + model_architecture + "-" + str(meta_data.get("steps_trained"))
+    model_path = f"{experiment_name}/{old_model_name}/model"
+    tmp_path = f"{new_directory}/metric_logs"
+    new_logger = configure(tmp_path, ["stdout", "csv"])
+    if model_architecture == "PPO":
+        model = PPO.load(model_path)
+    elif model_architecture == "DQN":
+        model = DQN.load(model_path)
+    elif model_architecture == "A2C":
+        model = A2C.load(model_path)
+    else:
+        print("No valid architecture")
+        return
+    env = make_atari_env(env_id, n_envs=1, seed=0)
+    env = VecFrameStack(env, n_stack=4)
+    model.set_env(env)
+    model.set_logger(new_logger)
+    model = TrainAndEvaluate(env_id,model,steps)
+    meta_data["steps_trained"] = new_steps_trained
     metadata_path = f"{experiment_name}/metadata.json"
     with open(metadata_path, 'w') as file:
         json.dump(meta_data, file)
-
-    model_name = meta_data.get("env_id") + "-" + meta_data.get("model_architecture") + "-" + str(steps_trained)
-    model_save_path = f"{experiment_name}/"+model_name
+    model_save_path = f"{new_directory}/model"
     model.save(model_save_path)
-    evaluations_path = f"{experiment_name}/evaluations.csv"
-    df.to_csv(evaluations_path, index=False)
+
+
+
+
+
+
+
+
+
+
+
 
 def TuneHyperparameters(model_architecture, env_id,steps ,set_params, hyper_parameter_ranges):
     def objective(trial):

@@ -7,7 +7,7 @@ import json
 import os
 from stable_baselines3.common.evaluation import evaluate_policy
 import time
-def create_video(experiment_name,steps_trained,steps_to_play):
+def create_video(experiment_name,steps_trained,steps_to_play,render_recording):
     metadata_path = f"{experiment_name}/metadata.json"
     meta_data = {}
     with open(metadata_path, 'r') as file:
@@ -16,7 +16,8 @@ def create_video(experiment_name,steps_trained,steps_to_play):
     model_architecture = meta_data.get("model_architecture")
     if steps_trained == "latest":
         steps_trained = meta_data.get("steps_trained")
-    model_path = f"{experiment_name}/{env_id}-{model_architecture}-{str(steps_trained)}"
+    model_path = f"{experiment_name}/{env_id}-{model_architecture}-{str(steps_trained)}/model"
+    print(model_path)
     if not os.path.isfile(model_path + ".zip"):
         print("No valid model file path")
         return False
@@ -33,23 +34,16 @@ def create_video(experiment_name,steps_trained,steps_to_play):
     mean_reward, std_reward = evaluate_policy(model, eval_env, n_eval_episodes=10, deterministic=True)
     print(mean_reward, std_reward)
     obs = eval_env.reset()
-    eval_env.render(mode='human')
+    if render_recording:
+        eval_env.render(mode='human')
     frames = []
     for i in range(steps_to_play):
         action, _states = model.predict(obs, deterministic=True)
         obs, reward, done, info = eval_env.step(action)
-        eval_env.render(mode='human')
+        if render_recording:
+            eval_env.render(mode='human')
         frames.append(eval_env.render(mode='rgb_array'))
 
-
-
-
-    # Your existing code to generate frames...
-
-    # Create a video from the frames
-    video_path = 'myvideo.mp4'
+    video_path = f"{experiment_name}/{env_id}-{model_architecture}-{str(steps_trained)}/video.mp4"
     imageio.mimwrite(video_path, frames, fps=12)  # fps is frames per second
-
-    # To display the video in a Jupyter notebook or Google Colab, use the following:
-
     Video(video_path)
