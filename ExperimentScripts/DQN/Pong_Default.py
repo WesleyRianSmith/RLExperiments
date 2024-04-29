@@ -7,7 +7,7 @@ experiment_name = "PongDQN_Default"
 env_id = "PongNoFrameskip-v4"
 n_envs = 4
 n_stack = 4
-eval_frequency = 10000 / n_envs
+eval_frequency = 100000 / n_envs
 def CreateFolder():
     env = make_atari_env(env_id, n_envs=n_envs, seed=0)
     env = VecFrameStack(env, n_stack=n_stack)
