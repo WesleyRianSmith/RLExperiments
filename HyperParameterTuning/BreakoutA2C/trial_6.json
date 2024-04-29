@@ -1,0 +1,1 @@
+{"hyperparameters": {"learning_rate": 4.1e-05, "ent_coef": 0.0033, "gamma": 0.97893, "max_grad_norm": 0.455, "n_steps": 10}, "mean_reward": 2.2}

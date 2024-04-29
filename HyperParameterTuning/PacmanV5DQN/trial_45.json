@@ -1,0 +1,1 @@
+{"hyperparameters": {"learning_rate": 0.000135, "exploration_initial_eps": 0.447664, "exploration_final_eps": 0.06691, "exploration_fraction": 0.03283, "train_freq": 2}, "mean_reward": 57.3}
