@@ -1,72 +1,134 @@
 import experiment
-import make_video
-from stable_baselines3 import PPO, DQN, A2C
-from stable_baselines3.common.vec_env import VecFrameStack
-from stable_baselines3.common.env_util import make_atari_env
+import ExperimentScripts.PPO.Breakout_Default as PPOBreakout
+import ExperimentScripts.PPO.Pacman_Default as PPOPacMan
+import ExperimentScripts.PPO.Pong_Default as PPOPong
+import ExperimentScripts.PPO.SpaceInvaders_Default as PPOSpaceInvaders
 
-def InitialiseExperiment1():
-    env_id = "ALE/Breakout-v5"
-    n_envs = 4
-    n_stack = 8
-    env = make_atari_env(env_id, n_envs=n_envs, seed=0)
-    env = VecFrameStack(env, n_stack=n_stack)
-    hyperparameters = {
-        'policy': 'CnnPolicy',
-        'verbose': 1,
-        'batch_size': 128,
-        'ent_coef': 0.1,
-        'learning_rate': 0.00025,
-        'n_epochs': 4,
-        'n_steps': 128,
-        'vf_coef': 0.5,
-        'clip_range': 0.1
-    }
-    model = PPO(env=env,**hyperparameters)
-    experiment.InitialiseExperiment(experiment_name="BreakoutPPO",model=model,model_architecture="PPO",env_id=env_id
-                                    ,n_envs=n_envs,n_stack=n_stack,hyper_parameters=hyperparameters)
+import ExperimentScripts.DQN.Breakout_Default as DQNBreakout
+import ExperimentScripts.DQN.Pacman_Default as DQNPacMan
+import ExperimentScripts.DQN.Pong_Default as DQNPong
+import ExperimentScripts.DQN.SpaceInvaders_Default as DQNSpaceInvaders
 
+import ExperimentScripts.A2C.Breakout_Default as A2CBreakout
+import ExperimentScripts.A2C.Pacman_Default as A2CPacMan
+import ExperimentScripts.A2C.Pong_Default as A2CPong
+import ExperimentScripts.A2C.SpaceInvaders_Default as A2CSpaceInvaders
 
-def InitialiseExperiment2():
-    env_id = "ALE/Breakout-v5"
-    n_envs = 4
-    n_stack = 8
-    env = make_atari_env(env_id, n_envs=n_envs, seed=0)
-    env = VecFrameStack(env, n_stack=n_stack)
-    hyperparameters = {
-        'policy': 'CnnPolicy',
-        'verbose': 1,
-        'buffer_size': 25000
-    }
-    model = DQN(env=env, **hyperparameters)
-    experiment.InitialiseExperiment(experiment_name="BreakoutDQN",model=model,model_architecture="DQN",
-                                    env_id=env_id,n_envs=n_envs,n_stack=n_stack,hyper_parameters=hyperparameters)
-def InitialiseExperiment3():
-    env_id = "Breakout-v4"
-    env = make_atari_env(env_id, n_envs=1, seed=0)
-    env = VecFrameStack(env, n_stack=4)
-    hyperparameters = {
-        'policy': 'CnnPolicy',
-        'verbose': 1,
-    }
-    model = A2C(env=env, **hyperparameters)
-    experiment.InitialiseExperiment(experiment_name="BreakoutA2C",model=model,model_architecture="A2C",
-                                    env_id=env_id,hyper_parameters=hyperparameters)
-#make_video.create_video("BreakoutPPO","latest",1000,True)
-InitialiseExperiment1()
-for i in range(0 ):
-    experiment.TrainExperiment("BreakoutPPO",1_000_000)
+import ExperimentScripts.PPO.Breakout_Tuned as PPOBreakout_Tuned
+import ExperimentScripts.PPO.Pacman_Tuned as PPOPacMan_Tuned
+import ExperimentScripts.PPO.Pong_Tuned as PPOPong_Tuned
+import ExperimentScripts.PPO.SpaceInvaders_Tuned as PPOSpaceInvaders_Tuned
 
-#model = DQN.load("BreakoutPPO/Breakout-v4-DQN-2602000")
+import ExperimentScripts.DQN.Breakout_Tuned as DQNBreakout_Tuned
+import ExperimentScripts.DQN.Pacman_Tuned as DQNPacMan_Tuned
+import ExperimentScripts.DQN.Pong_Tuned as DQNPong_Tuned
+import ExperimentScripts.DQN.SpaceInvaders_Tuned as DQNSpaceInvaders_Tuned
 
-hyper_parameter_ranges = {
-    "learning_rate": [0.00001, 0.001,"float",True,5],
-    "gamma": [0.9,0.9999,"float",True,4],
-    "exploration_final_eps": [0.01, 0.02,"float", False,4],
-    "exploration_initial_eps": [0.9, 1.1,"float", False,4]
+import ExperimentScripts.A2C.Breakout_Tuned as A2CBreakout_Tuned
+import ExperimentScripts.A2C.Pacman_Tuned as A2CPacMan_Tuned
+import ExperimentScripts.A2C.Pong_Tuned as A2CPong_Tuned
+import ExperimentScripts.A2C.SpaceInvaders_Tuned as A2CSpaceInvaders_Tuned
+def CreateAll():
+    PPOBreakout.CreateFolder()
+    PPOPacMan.CreateFolder()
+    PPOPong.CreateFolder()
+    PPOSpaceInvaders.CreateFolder()
+
+    DQNBreakout.CreateFolder()
+    DQNPacMan.CreateFolder()
+    DQNPong.CreateFolder()
+    DQNSpaceInvaders.CreateFolder()
+
+    A2CBreakout.CreateFolder()
+    A2CPacMan.CreateFolder()
+    A2CPong.CreateFolder()
+    A2CSpaceInvaders.CreateFolder()
+
+    PPOBreakout_Tuned.CreateFolder()
+    PPOPacMan_Tuned.CreateFolder()
+    PPOPong_Tuned.CreateFolder()
+    PPOSpaceInvaders_Tuned.CreateFolder()
+
+    DQNBreakout_Tuned.CreateFolder()
+    DQNPacMan_Tuned.CreateFolder()
+    DQNPong_Tuned.CreateFolder()
+    DQNSpaceInvaders_Tuned.CreateFolder()
+
+    A2CBreakout_Tuned.CreateFolder()
+    A2CPacMan_Tuned.CreateFolder()
+    A2CPong_Tuned.CreateFolder()
+    A2CSpaceInvaders_Tuned.CreateFolder()
+
+def TrainAll(steps):
+    PPOBreakout.Train(steps,1)
+    PPOPacMan.Train(steps,1)
+    PPOPong.Train(steps,1)
+    PPOSpaceInvaders.Train(steps,1)
+
+    DQNBreakout.Train(steps,1)
+    DQNPacMan.Train(steps,1)
+    DQNPong.Train(steps,1)
+    DQNSpaceInvaders.Train(steps,1)
+
+    A2CBreakout.Train(steps,1)
+    A2CPacMan.Train(steps,1)
+    A2CPong.Train(steps,1)
+    A2CSpaceInvaders.Train(steps,1)
+
+    PPOBreakout_Tuned.Train(steps,1)
+    PPOPacMan_Tuned.Train(steps,1)
+    PPOPong_Tuned.Train(steps,1)
+    PPOSpaceInvaders_Tuned.Train(steps,1)
+
+    DQNBreakout_Tuned.Train(steps,1)
+    DQNPacMan_Tuned.Train(steps,1)
+    DQNPong_Tuned.Train(steps,1)
+    DQNSpaceInvaders_Tuned.Train(steps,1)
+
+    A2CBreakout_Tuned.Train(steps,1)
+    A2CPacMan_Tuned.Train(steps,1)
+    A2CPong_Tuned.Train(steps,1)
+    A2CSpaceInvaders_Tuned.Train(steps,1)
+
+ppo_hyper_parameter_ranges = {
+    "learning_rate": [0.00001, 0.0003, "float", True,6],
+    "gamma": [0.9,0.9999,"float", True, 5],
+    "ent_coef": [0.001, 0.05, "float", True, 4],
+    "batch_size": [128, 512, "int", False, 1, 128],
+    "n_steps": [128, 512, "int", False, 1, 128],
 }
-hyperparameters = {
+ppo_hyperparameters = {
     "policy": "CnnPolicy",
     'verbose': 1,
-    'buffer_size': 25000
     }
-experiment.TuneHyperparameters("TestTrial","DQN","Breakout-v4",4,4,10000,hyperparameters,hyper_parameter_ranges)
+
+dqn_hyper_parameter_ranges = {
+    "learning_rate": [0.00001, 0.0003, "float", True,6],
+    "exploration_initial_eps": [0.01, 1, "float", True, 6],
+    "exploration_final_eps": [0.001,0.1,"float", True, 5],
+    "exploration_fraction": [0.01,0.05,"float", True, 5],
+    "train_freq": [2,16,"int", False, 1, 2]
+}
+dqn_hyperparameters = {
+    "policy": "CnnPolicy",
+    'verbose': 1,
+    'buffer_size': 100_000,
+    'gradient_steps': 1
+    }
+
+a2c_hyper_parameter_ranges = {
+    "learning_rate": [0.00001, 0.0003, "float", True,6],
+    "ent_coef": [0.001, 0.05, "float", True, 4],
+    "gamma": [0.9,0.9999,"float", True, 5],
+    "max_grad_norm": [0.1,1,"float", True, 3],
+    "n_steps": [5, 50, "int", False, 1, 5],
+}
+a2c_hyperparameters = {
+    "policy": "CnnPolicy",
+    'verbose': 1,
+    }
+
+#PPO_Breakout_Default.Train(500_000, 1)
+#experiment.TuneHyperparameters("PacmanDQN",50,"A2C",
+                              # "SpaceInvadersNoFrameskip-v4",4,4,100000,
+                               #a2c_hyperparameters,a2c_hyper_parameter_ranges)

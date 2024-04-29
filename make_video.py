@@ -8,7 +8,7 @@ import os
 from stable_baselines3.common.evaluation import evaluate_policy
 import time
 def create_video(experiment_name,steps_trained,steps_to_play,render_recording):
-    metadata_path = f"{experiment_name}/metadata.json"
+    metadata_path = f"ExperimentModels/{experiment_name}/metadata.json"
     meta_data = {}
     with open(metadata_path, 'r') as file:
         meta_data = json.load(file)
@@ -17,7 +17,7 @@ def create_video(experiment_name,steps_trained,steps_to_play,render_recording):
     if steps_trained == "latest":
         steps_trained = meta_data.get("steps_trained")
     coded_env_id = meta_data.get("env_id").replace("/", "-")
-    model_path = f"{experiment_name}/{coded_env_id}-{model_architecture}-{str(steps_trained)}/model"
+    model_path = f"ExperimentModels/{experiment_name}/{coded_env_id}-{model_architecture}-{str(steps_trained)}/model"
     print(model_path)
     if not os.path.isfile(model_path + ".zip"):
         print("No valid model file path")
@@ -45,6 +45,6 @@ def create_video(experiment_name,steps_trained,steps_to_play,render_recording):
             eval_env.render(mode='human')
         frames.append(eval_env.render(mode='rgb_array'))
 
-    video_path = f"{experiment_name}/{coded_env_id}-{model_architecture}-{str(steps_trained)}/video.mp4"
+    video_path = f"ExperimentModels/{experiment_name}/{coded_env_id}-{model_architecture}-{str(steps_trained)}/video.mp4"
     imageio.mimwrite(video_path, frames, fps=12)  # fps is frames per second
     Video(video_path)
