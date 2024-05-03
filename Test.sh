@@ -2,7 +2,7 @@
 # Load necessary modules
 module load python/anaconda3
 source $condaDotFile
-source activate RLProject
+source activate RLDissertationProject
 
 # Display GPU status
 nvidia-smi
@@ -11,7 +11,7 @@ nvidia-smi
 which python
 
 # Define paths
-_path="C:\Users\smith\PycharmProjects\Diss"
+_path="git@github.com:WesleyRianSmith/RLExperiments.git"
 
 # Change directory to the script's path
 cd $_path || exit
