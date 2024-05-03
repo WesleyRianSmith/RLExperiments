@@ -11,7 +11,7 @@ nvidia-smi
 which python
 
 # Define paths
-_path="git@github.com:WesleyRianSmith/RLExperiments.git"
+_path="/jmain02/home/J2AD006/jxb06/cxz46-jxb06/csc210168637"
 
 # Change directory to the script's path
 cd $_path || exit
