@@ -6,8 +6,10 @@ pip install gymnasium[accept-rom-license]
 pip install imageio
 pip install mlflow
 pip install opencv-python
-pip install pyvirtualdisplay > /dev/null 2>&1
 pip install optuna
 pip install IPython
 pip install imageio[ffmpeg]
 pip install imageio[pyav]
+pip install torch==1.12.1+cu113
+pip install torchaudio==0.12.1
+pip install torchvision==0.13.1+cu113
