@@ -18,5 +18,4 @@ cd $_path || exit
 
 # Execute the Python script with parameters
 python $_path/PPOExperiment.py \
-    -R $SLURM_JOB_ID \
     -S $_path/Configurations/PPO/BreakoutDefault.yml \
