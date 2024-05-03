@@ -2,7 +2,7 @@
 # Load necessary modules
 module load python/anaconda3
 source $condaDotFile
-source activate RLDissertationProject
+source activate csc1016863
 
 # Display GPU status
 nvidia-smi
