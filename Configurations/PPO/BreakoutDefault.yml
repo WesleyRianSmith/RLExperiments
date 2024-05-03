@@ -1,0 +1,9 @@
+experiment_name: "BreakoutPPO_Default"
+env_id: "BreakoutNoFrameskip-v4"
+n_envs: 4
+n_stack: 4
+eval_frequency: 25000
+steps_to_train: 10000000
+hyperparameters:
+  policy: 'CnnPolicy'
+  verbose: 1

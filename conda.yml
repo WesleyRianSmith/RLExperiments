@@ -1,0 +1,23 @@
+name: csc1016863
+channels:
+  - conda-forge
+  - defaults
+  - nvidia
+dependencies:
+  - pip
+  - python=3.9
+  - pip:
+      - Farama-Notifications==0.0.4
+      - stable-baselines3==2.0.0a5
+      - swig
+      - gymnasium[box2d]
+      - gymnasium[atari]
+      - gymnasium[accept-rom-license]
+      - imageio
+      - mlflow
+      - opencv-python
+      - pyvirtualdisplay > /dev/null 2>&1
+      - optuna
+      - IPython
+      - imageio[ffmpeg]
+      - imageio[pyav]
