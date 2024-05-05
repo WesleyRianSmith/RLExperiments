@@ -6,11 +6,11 @@ def write_bash_script(bash_name,experiment_script, configure_file):
 module load python/anaconda3
 source $condaDotFile
 source activate csc1016863
-    
+
 nvidia-smi
-    
+
 which python
-    
+
 _path="{path}"
 cd $_path || exit
 python $_path/{experiment_script}.py -C $_path/Configurations/PPO/{configure_file}.yml
