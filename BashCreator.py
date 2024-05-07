@@ -19,7 +19,7 @@ python $_path/{experiment_script}.py -C $_path/Configurations/{architecture}/{co
     with open(f'BashScripts/{bash_name}.sh', 'w') as file:
         file.write(bash_content)
 
-    print("Bash script 'run_experiment.sh' has been created.")
+    print(f"Bash script '{experiment_script}.sh' has been created.")
 
 if __name__ == '__main__':
     write_bash_script("PongPPO_Default","PPOExperiment","PPO","PongPPO_Default")
