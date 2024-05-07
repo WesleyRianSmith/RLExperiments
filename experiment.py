@@ -123,7 +123,9 @@ class CustomEvalCallback(EvalCallback):
 
 
 def InitialiseExperiment(experiment_name, model, model_architecture, env_id, n_envs, n_stack, eval_frequency, hyper_parameters):
-
+    directory = f"ExperimentModels"
+    if not os.path.exists(directory):
+        os.mkdir(directory)
     # Create a directory for the experiment
     directory = f"ExperimentModels/{experiment_name}"
     if not os.path.exists(directory):
