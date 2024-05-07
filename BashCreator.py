@@ -16,6 +16,7 @@ cd $_path || exit
 python $_path/{experiment_script}.py -C $_path/Configurations/{architecture}/{configure_file}.yml
 """
     # Write the bash script to a file
+    #print(f"python {experiment_script}.py -C Configurations/{architecture}/{configure_file}.yml")
     with open(f'BashScripts/{bash_name}.sh', 'w') as file:
         file.write(bash_content)
 

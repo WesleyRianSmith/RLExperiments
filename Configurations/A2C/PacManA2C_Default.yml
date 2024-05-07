@@ -1,0 +1,10 @@
+env_id: ALE/Pacman-v5
+eval_frequency: 25000
+experiment_name: PacManA2C_Default
+hyperparameters:
+  policy: CnnPolicy
+  verbose: 1
+model_architecture: A2C
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000

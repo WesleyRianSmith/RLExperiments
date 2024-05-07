@@ -1,0 +1,15 @@
+env_id: SpaceInvadersNoFrameskip-v4
+eval_frequency: 25000
+experiment_name: SpaceInvadersA2C_Tuned
+hyperparameters:
+  ent_coef: 0.0358
+  gamma: 0.97034
+  learning_rate: 7.1e-05
+  max_grad_norm: 0.149
+  n_steps: 15
+  policy: CnnPolicy
+  verbose: 1
+model_architecture: A2C
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000

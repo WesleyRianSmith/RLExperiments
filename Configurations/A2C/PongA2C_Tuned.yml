@@ -1,0 +1,15 @@
+env_id: PongNoFrameskip-v4
+eval_frequency: 25000
+experiment_name: PongA2C_Tuned
+hyperparameters:
+  ent_coef: 0.0016
+  gamma: 0.95968
+  learning_rate: 0.000213
+  max_grad_norm: 0.375
+  n_steps: 5
+  policy: CnnPolicy
+  verbose: 1
+model_architecture: A2C
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000

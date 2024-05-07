@@ -1,0 +1,15 @@
+env_id: BreakoutNoFrameskip-v4
+eval_frequency: 25000
+experiment_name: BreakoutA2C_Tuned
+hyperparameters:
+  ent_coef: 0.0354
+  gamma: 0.90162
+  learning_rate: 8.3e-05
+  max_grad_norm: 0.983
+  n_steps: 15
+  policy: CnnPolicy
+  verbose: 1
+model_architecture: A2C
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000

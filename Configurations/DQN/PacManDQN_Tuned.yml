@@ -1,0 +1,16 @@
+env_id: ALE/Pacman-v5
+eval_frequency: 25000
+experiment_name: PacManDQN_Tuned
+hyperparameters:
+  buffer_size: 100000
+  exploration_final_eps: 0.09934
+  exploration_fraction: 0.03829
+  exploration_initial_eps: 0.220361
+  learning_rate: 0.000227
+  policy: CnnPolicy
+  train_freq: 2
+  verbose: 1
+model_architecture: DQN
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000

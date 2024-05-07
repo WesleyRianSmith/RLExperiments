@@ -26,7 +26,7 @@ def main(config):
 
     model = A2C(env=env, **hyperparameters)
     experiment.InitialiseExperiment(
-        experiment_name=experiment_name, model=model, model_architecture="PPO",
+        experiment_name=experiment_name, model=model, model_architecture="A2C",
         env_id=env_id, n_envs=n_envs, n_stack=n_stack, eval_frequency=eval_frequency,
         hyper_parameters=hyperparameters
     )

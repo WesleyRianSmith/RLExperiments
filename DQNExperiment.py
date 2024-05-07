@@ -26,7 +26,7 @@ def main(config):
 
     model = DQN(env=env, **hyperparameters)
     experiment.InitialiseExperiment(
-        experiment_name=experiment_name, model=model, model_architecture="PPO",
+        experiment_name=experiment_name, model=model, model_architecture="DQN",
         env_id=env_id, n_envs=n_envs, n_stack=n_stack, eval_frequency=eval_frequency,
         hyper_parameters=hyperparameters
     )
@@ -36,7 +36,7 @@ def main(config):
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description='Run PPO experiments with configurations from a YAML file.')
+    parser = argparse.ArgumentParser(description='Run DQN experiments with configurations from a YAML file.')
     parser.add_argument('-C', '--config', type=str, required=True, help='Path to configuration YAML file')
     args = parser.parse_args()
 

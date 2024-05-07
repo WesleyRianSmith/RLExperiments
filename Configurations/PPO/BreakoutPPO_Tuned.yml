@@ -1,0 +1,15 @@
+env_id: BreakoutNoFrameskip-v4
+eval_frequency: 25000
+experiment_name: BreakoutPPO_Tuned
+hyperparameters:
+  batch_size: 384
+  ent_coef: 0.0399
+  gamma: 0.99845
+  learning_rate: 0.000298
+  n_steps: 384
+  policy: CnnPolicy
+  verbose: 1
+model_architecture: PPO
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000

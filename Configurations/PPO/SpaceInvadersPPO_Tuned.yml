@@ -1,0 +1,15 @@
+env_id: SpaceInvadersNoFrameskip-v4
+eval_frequency: 25000
+experiment_name: SpaceInvadersPPO_Tuned
+hyperparameters:
+  batch_size: 384
+  ent_coef: 0.0321
+  gamma: 0.93043
+  learning_rate: 0.000104
+  n_steps: 256
+  policy: CnnPolicy
+  verbose: 1
+model_architecture: PPO
+n_envs: 4
+n_stack: 4
+steps_to_train: 10000000
