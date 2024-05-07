@@ -1,4 +1,5 @@
 path = "/jmain02/home/J2AD006/jxb06/cxz46-jxb06/csc210168637/RLExperiments"
+import os
 def write_bash_script(bash_name,experiment_script,architecture, configure_file):
     
 	
@@ -23,6 +24,9 @@ python $_path/{experiment_script}.py -C $_path/Configurations/{architecture}/{co
     print(f"Bash script '{experiment_script}.sh' has been created.")
 
 if __name__ == '__main__':
+    directory = "BashScripts"
+    if not os.path.exists(directory):
+        os.mkdir(directory)
     write_bash_script("PongPPO_Default","PPOExperiment","PPO","PongPPO_Default")
     write_bash_script("PongPPO_Tuned", "PPOExperiment","PPO", "PongPPO_Tuned")
     write_bash_script("PongDQN_Default", "DQNExperiment","DQN", "PongDQN_Default")
