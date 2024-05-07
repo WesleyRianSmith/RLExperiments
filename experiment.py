@@ -180,7 +180,6 @@ def TrainExperiment(experiment_name,steps):
     model_path = f"ExperimentModels/{experiment_name}/{old_model_name}/model"
     tmp_path = f"{new_directory}/metric_logs"
     new_logger = configure(tmp_path, ["stdout", "csv"])
-    print("HERHUERHUIERHUER")
     print(model_path)
     if model_architecture == "PPO":
         model = PPO.load(model_path)
