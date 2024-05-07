@@ -9,5 +9,5 @@ which python
 
 _path="/jmain02/home/J2AD006/jxb06/cxz46-jxb06/csc210168637/RLExperiments"
 cd $_path || exit
-python $_path/PPOExperiment.py -C $_path/Configurations/PPO/BreakoutDefault.yml
+python $_path/PPOExperiment.py -C $_path/Configurations/PPO/BreakoutDedsdsdwadddault.yml
 
